@@ -4,8 +4,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-DATABASE_URL = os.getenv("DATABASE_URL")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+_raw_db_url = os.getenv("DATABASE_URL", "")
+
+# Railway/Postgres odatda "postgresql://" yoki "postgres://" ko'rinishida beradi,
+# lekin bizga asyncpg drayveri uchun "postgresql+asyncpg://" kerak.
+# Shu yerda avtomatik moslashtiramiz, shunda .env yoki Railway
+# o'zgaruvchisiga qo'l bilan drayver nomini qo'shish shart emas.
+if _raw_db_url.startswith("postgres://"):
+    DATABASE_URL = _raw_db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+elif _raw_db_url.startswith("postgresql://"):
+    DATABASE_URL = _raw_db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+else:
+    DATABASE_URL = _raw_db_url
 
 ADMIN_IDS = [
     int(x.strip())

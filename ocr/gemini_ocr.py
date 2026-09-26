@@ -6,7 +6,7 @@ from config import GEMINI_API_KEY
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-MODEL_NAME = "gemini-3.0-flash"
+MODEL_NAME = "gemini-flash-latest"
 
 # Rasmlarda uchraydigan barcha majburiy maydonlarni qat'iy JSON
 # formatida qaytarishni talab qiluvchi ko'rsatma (prompt).

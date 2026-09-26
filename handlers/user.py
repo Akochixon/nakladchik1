@@ -95,7 +95,7 @@ async def reg_id_number(message: Message, state: FSMContext, bot: Bot):
 
 
 # ---------------------------------------------------------- Накладная rasm
-@router.message(InvoiceFlow.waiting_photo, F.photo)
+@router.message(F.photo)
 async def receive_invoice_photo(message: Message, state: FSMContext, bot: Bot):
     async with get_session() as session:
         result = await session.execute(
